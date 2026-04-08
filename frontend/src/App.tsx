@@ -4,7 +4,7 @@ import router from "./routes/route";
 const App = () => {
   return (
     <div className="font-serif">
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </div>
   );
 };

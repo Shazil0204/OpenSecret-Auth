@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import { RightArrowIcon } from "../components/icons";
 import Navbar from "../components/Navbar";
 
 const Home = () => {
@@ -19,14 +20,14 @@ const Home = () => {
         </p>
         <Link
           to="/login"
-          className="mt-6 md:mt-12 inline-block rounded-md bg-primary px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-primary/80"
+          className="group mt-6 inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-base font-medium text-white shadow-sm transition-colors hover:bg-primary/80 md:mt-12"
         >
           Get Started
+          <RightArrowIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:scale-150" />
         </Link>
-        {/* Disclaimer */}
         <div className="mt-12 max-w-4xl border-l-4 border-primary/60 pl-4 sm:pl-6">
           <div className="flex items-start gap-3 sm:gap-4">
-            <span className="mt-0.5 inline-flex h-5 w-5 flex-shrink-0 items-center justify-center text-primary sm:h-6 sm:w-6">
+            <span className="mt-0.5 animate-pulse inline-flex h-5 w-5 shrink-0 items-center justify-center text-primary sm:h-6 sm:w-6">
               <svg
                 viewBox="0 0 24 24"
                 fill="currentColor"
