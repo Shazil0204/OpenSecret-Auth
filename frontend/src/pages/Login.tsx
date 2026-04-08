@@ -112,14 +112,28 @@ const Login = () => {
               className="mt-0.5 h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary/30"
             />
             <span>
-              I accept the Terms and Conditions for this educational simulation.
+              I accept the{" "}
+              <Link
+                to="/terms"
+                className="text-primary font-bold hover:underline"
+              >
+                Terms and Conditions
+              </Link>{" "}
+              for this educational simulation.
             </span>
           </label>
-
+          <Link className="text-primary hover:underline" to="/signup">
+            Don't have an account?{" "}
+            <span className="font-semibold">Sign up</span>
+          </Link>
           <button
             type="submit"
             disabled={!canLogin}
-            className={canLogin ? `cursor-pointer group mt-1 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-primary/20 transition-[background-color,box-shadow,transform,opacity] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40` : `cursor-not-allowed group mt-1 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-secondary/20 transition-[background-color,box-shadow,transform,opacity] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40`}
+            className={
+              canLogin
+                ? `cursor-pointer group mt-1 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-primary/20 transition-[background-color,box-shadow,transform,opacity] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 enabled:hover:bg-primary/90 enabled:hover:shadow-inner enabled:active:translate-y-px`
+                : `cursor-not-allowed group mt-1 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-secondary/20 transition-[background-color,box-shadow,transform,opacity] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 opacity-80`
+            }
           >
             Login
             <RightArrowIcon className="h-4 w-4 transition-transform duration-200 group-enabled:group-hover:translate-x-1" />
