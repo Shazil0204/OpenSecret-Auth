@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
-import { RightArrowIcon } from "../components/icons";
+import { InfoIcon, RightArrowIcon } from "../components/icons";
 import Navbar from "../components/Navbar";
 
 const Home = () => {
@@ -28,18 +28,7 @@ const Home = () => {
         <div className="mt-12 max-w-4xl border-l-4 border-primary/60 pl-4 sm:pl-6">
           <div className="flex items-start gap-3 sm:gap-4">
             <span className="mt-0.5 animate-pulse inline-flex h-5 w-5 shrink-0 items-center justify-center text-primary sm:h-6 sm:w-6">
-              <svg
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-                className="h-full w-full"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M12 2a10 10 0 100 20 10 10 0 000-20zm.75 6a.75.75 0 10-1.5 0v.5a.75.75 0 001.5 0V8zm-.75 3a.75.75 0 00-.75.75v4.5a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              <InfoIcon className="h-full w-full" />
             </span>
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary sm:text-sm">

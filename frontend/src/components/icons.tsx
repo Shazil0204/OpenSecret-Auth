@@ -76,6 +76,23 @@ export const EyeOffIcon = ({ className = "h-4 w-4" }: IconProps) => {
   );
 };
 
+export const InfoIcon = ({ className = "h-4 w-4" }: IconProps) => {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      className={className}
+    >
+      <path
+        fillRule="evenodd"
+        d="M12 2a10 10 0 100 20 10 10 0 000-20zm.75 6a.75.75 0 10-1.5 0v.5a.75.75 0 001.5 0V8zm-.75 3a.75.75 0 00-.75.75v4.5a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
 export const RightArrowIcon = ({ className = "h-4 w-4" }: IconProps) => {
   return (
     <svg

@@ -2,20 +2,67 @@ import { useState } from "react";
 import {
   EyeIcon,
   EyeOffIcon,
+  InfoIcon,
   LockIcon,
   RightArrowIcon,
   UserIcon,
 } from "../components/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import authData from "../secure/data.json";
+
+type AuthAccount = {
+  id: string;
+  username: string;
+  hashedpassword: string;
+  timestamp: string;
+  seen: boolean;
+};
+
+type AuthData = {
+  accounts: AuthAccount[];
+  stats: {
+    totalAccountsCreated: number;
+    totalAdminPageVisits: number;
+  };
+};
+
+const hashPassword = (rawPassword: string) => {
+  // Demo-only hash: keep deterministic so it can be matched against JSON seed data.
+  return `v1:${btoa(rawPassword)}`;
+};
 
 const Login = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [loginError, setLoginError] = useState(false);
 
   const canLogin =
     username.trim().length > 0 && password.trim().length > 0 && acceptedTerms;
+
+  const handleLogin = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    if (!canLogin) {
+      return;
+    }
+
+    const authStore = authData as AuthData;
+    const targetAccount = authStore.accounts.find(
+      (account) => account.username === username.trim(),
+    );
+    const candidateHash = hashPassword(password);
+
+    if (!targetAccount || targetAccount.hashedpassword !== candidateHash) {
+      setLoginError(true);
+      return;
+    }
+
+    setLoginError(false);
+    navigate("/admin");
+  };
 
   return (
     <main className="relative flex min-h-dvh items-center justify-center overflow-hidden px-4 py-10 sm:px-6 lg:px-8">
@@ -44,7 +91,25 @@ const Login = () => {
           </p>
         </div>
 
-        <form className="space-y-5" autoComplete="off">
+        {loginError && (
+          <div className="mb-6 rounded-lg border-l-4 border-red-600 bg-red-50 p-4">
+            <div className="flex items-start gap-3">
+              <InfoIcon className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
+              <div>
+                <p className="text-sm font-semibold text-red-600">
+                  LOGIN ERROR
+                </p>
+                <p className="mt-1 text-sm text-red-800">
+                  Username or password is wrong. Try again, or <Link to="/signup" className="font-semibold text-red-800 hover:text-red-600">
+                    create a new account
+                  </Link> if you don't have one.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <form className="space-y-5" autoComplete="off" onSubmit={handleLogin}>
           <div className="relative">
             <span className="pointer-events-none absolute left-3.5 top-1/2 z-10 -translate-y-1/2 rounded-md bg-primary/8 p-1.5 text-primary/80">
               <UserIcon className="h-4 w-4" />
@@ -54,7 +119,12 @@ const Login = () => {
               id="Username"
               name="Username"
               value={username}
-              onChange={(event) => setUsername(event.target.value)}
+              onChange={(event) => {
+                setUsername(event.target.value);
+                if (loginError) {
+                  setLoginError(false);
+                }
+              }}
               className="peer w-full rounded-xl border border-gray-200/90 bg-white pb-3 pl-12 pr-3 pt-6 text-[15px] text-primary shadow-sm transition-[border-color,box-shadow] placeholder:text-transparent focus:border-primary/45 focus:outline-none focus:ring-4 focus:ring-primary/10"
               placeholder=" "
             />
@@ -75,7 +145,12 @@ const Login = () => {
               id="Password"
               name="Password"
               value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={(event) => {
+                setPassword(event.target.value);
+                if (loginError) {
+                  setLoginError(false);
+                }
+              }}
               className="peer w-full rounded-xl border border-gray-200/90 bg-white pb-3 pl-12 pr-12 pt-6 text-[15px] text-primary shadow-sm transition-[border-color,box-shadow] placeholder:text-transparent focus:border-primary/45 focus:outline-none focus:ring-4 focus:ring-primary/10"
               placeholder=" "
             />

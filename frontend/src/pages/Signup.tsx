@@ -2,6 +2,7 @@ import { useState } from "react";
 import {
   EyeIcon,
   EyeOffIcon,
+  InfoIcon,
   LockIcon,
   RightArrowIcon,
   UserIcon,
@@ -11,10 +12,18 @@ import { Link } from "react-router-dom";
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
+  const [adminUsername] = useState("Admin012245");
   const [password, setPassword] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [registrationError, setRegistrationError] = useState<boolean>(false);
 
-  const canSignup = username.trim().length > 0 && password.trim().length > 0 && acceptedTerms;
+  const canSignup =
+    username.trim().length > 0 && password.trim().length > 0 && acceptedTerms;
+
+  const handleSignup = (e: React.FormEvent) => {
+    e.preventDefault();
+    setRegistrationError(true);
+  };
 
   return (
     <main className="relative flex min-h-dvh items-center justify-center overflow-hidden px-4 py-10 sm:px-6 lg:px-8">
@@ -43,7 +52,25 @@ const Signup = () => {
           </p>
         </div>
 
-        <form className="space-y-5" autoComplete="off">
+        {registrationError && (
+          <div className="rounded-lg border-l-4 border-red-600 bg-red-50 p-4 mb-6">
+            <div className="flex items-start gap-3">
+              <InfoIcon className="h-5 w-5 text-red-600 shrink-0 mt-0.5" />
+              <div>
+                <p className="text-sm font-semibold text-red-600">
+                  REGISTRATION CONFLICT
+                </p>
+                <p className="text-sm text-red-800 mt-1">
+                  Account cannot be created. The user{" "}
+                  <span className="font-bold">{adminUsername}</span> is already
+                  associated with this password sequence.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <form className="space-y-5" autoComplete="off" onSubmit={handleSignup}>
           <div className="relative">
             <span className="pointer-events-none absolute left-3.5 top-1/2 z-10 -translate-y-1/2 rounded-md bg-primary/8 p-1.5 text-primary/80">
               <UserIcon className="h-4 w-4" />
@@ -111,7 +138,11 @@ const Signup = () => {
               className="mt-0.5 h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary/30"
             />
             <span>
-              I accept the <Link to="/terms" className="text-primary font-bold hover:underline">
+              I accept the{" "}
+              <Link
+                to="/terms"
+                className="text-primary font-bold hover:underline"
+              >
                 Terms and Conditions
               </Link>{" "}
               for this educational simulation.
@@ -126,6 +157,7 @@ const Signup = () => {
           <button
             type="submit"
             disabled={!canSignup}
+            onClick={() => canSignup && handleSignup}
             className={
               canSignup
                 ? `cursor-pointer group mt-1 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-primary/20 transition-[background-color,box-shadow,transform,opacity] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 enabled:hover:bg-primary/90 enabled:hover:shadow-inner enabled:active:translate-y-px`
