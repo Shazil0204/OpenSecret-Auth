@@ -119,7 +119,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={!canLogin}
-            className="group mt-1 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-secondary/20 transition-[background-color,box-shadow,transform,opacity] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed disabled:opacity-85 enabled:bg-primary enabled:shadow-primary/25 enabled:hover:bg-primary/90 enabled:hover:shadow-inner enabled:active:translate-y-px"
+            className={canLogin ? `cursor-pointer group mt-1 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-primary/20 transition-[background-color,box-shadow,transform,opacity] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40` : `cursor-not-allowed group mt-1 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-secondary/20 transition-[background-color,box-shadow,transform,opacity] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40`}
           >
             Login
             <RightArrowIcon className="h-4 w-4 transition-transform duration-200 group-enabled:group-hover:translate-x-1" />
